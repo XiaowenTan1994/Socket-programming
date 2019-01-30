@@ -1,0 +1,51 @@
+a. Student name: Xiaowen Tan
+
+b. Student ID:5324326495
+
+c. what I have done in the assignment:
+	complete the phase 1,2A,2B,3
+
+d. what your code file are and what each one of them does
+	d.1 client.cpp: send link id size power to AWS server and receive end-to-end delay from AWS server.
+	d.2 client.h: provide necessary header files , two functions which can convert number in string to number in float to client.cpp 
+        d.3 aws.h: provide necessary header files to aws.cpp
+	d.4 aws.cpp: receive link id, size, power from client;  send link id to serverA,B; get search result from serverA,B; send detailed link information to serverC; get calculation result from serverC;
+	             send computed result to monitor and client.
+	d.5 server.h: provide a search function for serverA, B and two functions which can convert number in string to number to support search function
+	d.6 serverA.cpp: receive the link id from aws server; send the search result to aws server
+	d.7 serverB.cpp: receive the link id from aws server; send the search result to aws server
+	d.8 serverC.cpp: receive the detailed link information from aws server; send the computed result to aws server
+
+e.the format of all the message exchanged
+	f.1 client sends link id (long int) to aws;client sends size(long int) to aws; client sends power(float) to aws.
+	f.2 aws sends link_id(long int) to serverA; serverA sends m(bool) to aws;(aws uses m_A to store it)
+		f.2.1 if m==1
+		serverA sends bandwidth(float) to aws;serverA sends length(float) to aws; serverA sends velocity(float) to aws; serverA sends Noise_power(float) to aws.
+		f.2.2 if m==0
+		serverA sends nothing to aws.
+	f.3 aws sends link_id(long int) to serverB; serverB sends m(bool) to aws;(aws uses m_B to store it)
+		f.3.1 if m==1
+		serverB sends bandwidth(float) to aws;serverB sends length(float) to aws; serverB sends velocity(float) to aws; serverB sends Noise_power(float) to aws.
+		f.3.2 if m==0
+		serverB sends nothing to aws.
+	f.4 if(no match found) 
+		flag_AB(bool)=0;aws sends flag_AB(bool) to serverC, client and monitor.
+	f.5 if(found a match)
+		flag_AB(bool)=1;aws sends flag_AB(bool) to serverC,client and monitor; aws sends link_id (long int) to serverC;aws sends bandwidth (float) to serverC;aws sends size (long int) to serverC;aws sends power (float) to serverC;aws sends velocity (float) to serverC;aws sends length (float) to serverC;aws sends Noise_power (float) to serverC; serverC sends Tt(float) to aws; server sends Tp(float) to aws; server send delay(float) to aws.
+	f.6 if(found a match)
+		aws sends delay(float) to client; aws sends Tt (float) to monitor; aws sends Tp(float) to monitor.
+
+f. the idiosyncrasy:
+	e.1 please put the database file in the same holder with .cpp file, or my program cannot find the file.
+	e.2 please name two database files as "database_a.csv","database_b.csv", or my program cannot find the file.
+
+g. Reused code:
+	g.1 search() function in server.h: https://blog.csdn.net/u012234115/article/details/64465398 to get data in string from database
+	g.2 About how to establish TCP connection
+		https://www.youtube.com/watch?v=LtXEMwSG5-8
+	g.3 About how to establish UDP conection
+		https://www.youtube.com/watch?v=Emuw71lozdA
+
+	
+ 
+	
